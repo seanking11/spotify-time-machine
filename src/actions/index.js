@@ -23,8 +23,9 @@ export const authenticateUser = () => {
   }
 }
 
-export const fetchHistory = token => {
-  const request = axios.get(HISTORY_URL, { headers: { Authorization: `Bearer ${token}` } })
+export const fetchHistory = (token, url) => {
+  const requestUrl = url || HISTORY_URL
+  const request = axios.get(requestUrl, { headers: { Authorization: `Bearer ${token}` }, params: { limit: 50 } })
 
   return {
     type: FETCH_HISTORY,

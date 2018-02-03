@@ -26,9 +26,10 @@ const columnsConfig = [{
 
 class Builder extends Component {
   componentWillMount() {
-    const parsedHash = qs.parse(this.props.location.hash)
-    this.props.fetchHistory(parsedHash.access_token)
+    this.props.fetchHistory(this.parsedHash.access_token)
   }
+
+  parsedHash = qs.parse(this.props.location.hash)
 
   render() {
     return (
@@ -39,6 +40,7 @@ class Builder extends Component {
         { !this.props.data ? <div>loading...</div> : (
           <div>
             <h1>Your history</h1>
+            <div onClick={() => this.props.fetchHistory(this.parsedHash.access_token, this.props.next)}>Next history</div>
             <Table
               dataSource={this.props.pastHistory}
               columns={columnsConfig}
@@ -55,7 +57,8 @@ class Builder extends Component {
 const mapStateToProps = state => ({
   loading: state.builder.loading,
   data: state.builder.data,
-  pastHistory: selectors.history(state)
+  pastHistory: selectors.history(state),
+  next: state.builder.data.next
 })
 
 function mapDispatchToProps(dispatch) {
