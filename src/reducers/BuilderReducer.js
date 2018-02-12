@@ -3,7 +3,9 @@ import { FETCH_HISTORY } from '../actions'
 const initialState = {
   loading: true,
   data: {
-    items: []
+    recenttracks: {
+      track: []
+    }
   }
 }
 

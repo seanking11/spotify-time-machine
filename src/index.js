@@ -7,7 +7,6 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import promiseMiddleware from 'redux-promise'
 import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly'
 
-import App from './components/app'
 import Builder from './components/Builder'
 import reducers from './reducers'
 
@@ -17,8 +16,7 @@ ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
       <Switch>
-        <Route exact path='/' component={App} />
-        <Route path='/callback' component={Builder} />
+        <Route exact path='/' component={Builder} />
       </Switch>
     </BrowserRouter>
   </Provider>
