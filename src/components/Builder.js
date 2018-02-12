@@ -5,6 +5,7 @@ import qs from 'query-string'
 import Table from 'antd/lib/Table'
 import selectors from '../selectors'
 import { fetchHistory } from '../actions'
+import { DEBUG_USER } from '../keys'
 
 const columnsConfig = [{
   title: 'Title',
@@ -26,7 +27,7 @@ const columnsConfig = [{
 
 class Builder extends Component {
   componentWillMount() {
-    this.props.fetchHistory(this.parsedHash.access_token)
+    this.props.fetchHistory(DEBUG_USER)
   }
 
   parsedHash = qs.parse(this.props.location.hash)
@@ -40,7 +41,6 @@ class Builder extends Component {
         { !this.props.data ? <div>loading...</div> : (
           <div>
             <h1>Your history</h1>
-            <div onClick={() => this.props.fetchHistory(this.parsedHash.access_token, this.props.next)}>Next history</div>
             <Table
               dataSource={this.props.pastHistory}
               columns={columnsConfig}

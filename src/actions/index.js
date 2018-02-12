@@ -1,20 +1,19 @@
 import axios from 'axios'
-import CLIENT_ID from '../clientId'
+import {
+  CLIENT_ID,
+  LASTFM_API_KEY
+} from '../keys'
 
 // eslint-disable-next-line max-len
 const FULL_URL = `https://accounts.spotify.com/authorize?response_type=token&client_id=${CLIENT_ID}&redirect_uri=http:%2F%2Flocalhost:8080%2Fcallback&scope=user-top-read%20user-read-recently-played&show_dialog=true`
-const HISTORY_URL = 'https://api.spotify.com/v1/me/player/recently-played'
 
-// const params = {
-//   response_type: 'token',
-//   client_id: CLIENT_ID,
-//   redirect_uri: 'http://localhost:8080/callback',
-//   scope: 'user-top-read user-read-recently-played'
-// }
+// eslint-disable-next-line max-len
+const LASTFM_HISTORY_BASE_URL = `http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&api_key=${LASTFM_API_KEY}&format=json&user=`
 
 export const AUTHENTICATE_USER = 'AUTHENTICATE_USER'
 export const FETCH_HISTORY = 'FETCH_HISTORY'
 
+// Not in use
 export const authenticateUser = () => {
   window.location = FULL_URL
 
@@ -23,9 +22,9 @@ export const authenticateUser = () => {
   }
 }
 
-export const fetchHistory = (token, url) => {
-  const requestUrl = url || HISTORY_URL
-  const request = axios.get(requestUrl, { headers: { Authorization: `Bearer ${token}` }, params: { limit: 50 } })
+export const fetchHistory = (user, url) => {
+  const requestUrl = url || `${LASTFM_HISTORY_BASE_URL}${user}`
+  const request = axios.get(requestUrl)
 
   return {
     type: FETCH_HISTORY,
