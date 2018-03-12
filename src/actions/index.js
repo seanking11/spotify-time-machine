@@ -8,7 +8,7 @@ import {
 const FULL_URL = `https://accounts.spotify.com/authorize?response_type=token&client_id=${CLIENT_ID}&redirect_uri=http:%2F%2Flocalhost:8080%2Fcallback&scope=user-top-read%20user-read-recently-played&show_dialog=true`
 
 // eslint-disable-next-line max-len
-const LASTFM_HISTORY_BASE_URL = `http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&api_key=${LASTFM_API_KEY}&format=json&user=`
+const LASTFM_HISTORY_BASE_URL = `http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&limit=200&api_key=${LASTFM_API_KEY}&format=json&user=`
 
 export const AUTHENTICATE_USER = 'AUTHENTICATE_USER'
 export const FETCH_HISTORY = 'FETCH_HISTORY'

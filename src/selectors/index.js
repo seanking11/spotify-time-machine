@@ -13,7 +13,7 @@ selectors.history = createSelector(
     title: item.name,
     artist: item.artist['#text'],
     album: item.album['#text'],
-    date: 'Coming soon'
+    date: item.date['#text']
   }))
 )
 
