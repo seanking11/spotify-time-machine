@@ -22,8 +22,8 @@ export const authenticateUser = () => {
   }
 }
 
-export const fetchHistory = (user, url) => {
-  const requestUrl = url || `${LASTFM_HISTORY_BASE_URL}${user}`
+export const fetchHistory = (user, page = 1, url) => {
+  const requestUrl = url || `${LASTFM_HISTORY_BASE_URL}${user}&page=${page}`
   const request = axios.get(requestUrl)
 
   return {

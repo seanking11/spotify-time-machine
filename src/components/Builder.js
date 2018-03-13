@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import qs from 'query-string'
 import Table from 'antd/lib/Table'
+import Button from 'antd/lib/Button'
 import selectors from '../selectors'
 import { fetchHistory } from '../actions'
 import { DEBUG_USER } from '../keys'
@@ -26,8 +27,24 @@ const columnsConfig = [{
 }]
 
 class Builder extends Component {
+  state = {
+    pageToFetch: 2
+  }
+
   componentWillMount() {
     this.props.fetchHistory(DEBUG_USER)
+  }
+
+  _onPressForwards = () => {
+    if (this.state.pageToFetch <= this.props.data.recenttracks['@attr'].totalPages) {
+      this.setState({ pageToFetch: this.state.pageToFetch + 1 })
+      this.props.fetchHistory(DEBUG_USER, this.state.pageToFetch)
+    }
+  }
+
+  _onPressBack = () => {
+    this.setState({ pageToFetch: this.state.pageToFetch - 1 })
+    this.props.fetchHistory(DEBUG_USER, this.state.pageToFetch)
   }
 
   parsedHash = qs.parse(this.props.location.hash)
@@ -47,6 +64,12 @@ class Builder extends Component {
               size='middle'
               rowSelection={{}}
             />
+            <Button type='primary' onClick={this._onPressBack}>Page Back</Button>
+            <Button type='primary' onClick={this._onPressForwards}>Page Forward</Button>
+            <h4>Don't fetch below 0</h4>
+            {this.props.data.recenttracks['@attr'] ? (
+              <h2>Current Page: {this.state.pageToFetch - 1}/{this.props.data.recenttracks['@attr'].totalPages}</h2>
+            ) : ''}
           </div>
         )}
       </div>
