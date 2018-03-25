@@ -9,12 +9,19 @@ selectors.data = state => state.builder.data
 selectors.history = createSelector(
   selectors.builder,
   selectors.data,
-  (builder, data) => data.recenttracks.track.map(item => ({
-    title: item.name,
-    artist: item.artist['#text'],
-    album: item.album['#text'],
-    date: item.date['#text']
-  }))
+  (builder, data) => data.recenttracks.track.map(item => {
+    let date = 'Currently Playing'
+    if (item.date) {
+      date = item.date['#text']
+    }
+
+    return ({
+      title: item.name,
+      artist: item.artist['#text'],
+      album: item.album['#text'],
+      date
+    })
+  })
 )
 
 export default selectors
