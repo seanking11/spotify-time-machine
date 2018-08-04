@@ -16,6 +16,7 @@ selectors.history = createSelector(
     }
 
     return ({
+      key: `${item.name}*${item.artist['#text']}`,
       title: item.name,
       artist: item.artist['#text'],
       album: item.album['#text'],

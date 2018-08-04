@@ -80,6 +80,7 @@ class Builder extends Component {
                 Page Forward<Icon type='right' />
               </Button>
             </div>
+
             <Table
               dataSource={this.props.pastHistory}
               columns={columnsConfig}
@@ -87,6 +88,10 @@ class Builder extends Component {
               rowSelection={rowSelection}
               loading={this.props.loading}
             />
+
+            <div>
+              {`Rows selected: ${this.state.selectedRowKeys.length}`}
+            </div>
           </div>
         )}
       </div>
