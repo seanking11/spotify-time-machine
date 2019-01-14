@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 import qs from 'query-string'
 import Table from 'antd/lib/Table'
 import Button from 'antd/lib/Button'
 import Icon from 'antd/lib/Icon'
+import Pagination from './TablePagination'
 import selectors from '../selectors'
 import { fetchHistory } from '../actions'
 import { DEBUG_USER } from '../keys'
@@ -34,17 +34,19 @@ class Builder extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchHistory(DEBUG_USER, 1)
+    this.props.fetchHistory({ user: DEBUG_USER })
   }
 
-  _onSelectChange = (selectedRowKeys) => {
+  _onSelectChange = (selectedRowKeys, selectedRows) => {
     this.setState({ selectedRowKeys })
+    console.log(selectedRowKeys);
+    console.log(selectedRows);
   }
 
   _onPressForwards = () => {
-    if (this.state.currentPage < this.props.data.recenttracks['@attr'].totalPages) {
+    if (this.state.currentPage < this.props.totalPages) {
       this.setState({ currentPage: this.state.currentPage + 1 })
-      this.props.fetchHistory(DEBUG_USER, this.state.currentPage + 1)
+      this.props.fetchHistory({ user: DEBUG_USER }, this.state.currentPage + 1)
     }
   }
 
@@ -74,7 +76,7 @@ class Builder extends Component {
                 <Icon type='left' />Page Back
               </Button>
               {this.props.data.recenttracks['@attr'] && (
-                <h2>Current Page: {this.state.currentPage}/{this.props.data.recenttracks['@attr'].totalPages}</h2>
+                <h2>Current Page: {this.state.currentPage}/{this.props.totalPages}</h2>
               )}
               <Button type='primary' onClick={this._onPressForwards}>
                 Page Forward<Icon type='right' />
@@ -87,7 +89,10 @@ class Builder extends Component {
               size='middle'
               rowSelection={rowSelection}
               loading={this.props.loading}
+              pagination={<Pagination />}
             />
+
+            <Pagination />
 
             <div>
               {`Rows selected: ${this.state.selectedRowKeys.length}`}
@@ -103,11 +108,8 @@ const mapStateToProps = state => ({
   loading: state.builder.loading,
   data: state.builder.data,
   pastHistory: selectors.history(state),
-  next: state.builder.data.next
+  next: state.builder.data.next,
+  totalPages: state.builder.totalPages
 })
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchHistory }, dispatch)
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Builder)
+export default connect(mapStateToProps, { fetchHistory })(Builder)

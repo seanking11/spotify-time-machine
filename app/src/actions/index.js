@@ -1,4 +1,5 @@
 import axios from 'axios'
+import constants from '../constants'
 import {
   CLIENT_ID,
   LASTFM_API_KEY
@@ -11,7 +12,12 @@ const FULL_URL = `https://accounts.spotify.com/authorize?response_type=token&cli
 const LASTFM_HISTORY_BASE_URL = `http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&limit=200&api_key=${LASTFM_API_KEY}&format=json&user=`
 
 export const AUTHENTICATE_USER = 'AUTHENTICATE_USER'
-export const FETCH_HISTORY = 'FETCH_HISTORY'
+
+// TYPES
+
+export const FETCH_HISTORY = 'fetch_history'
+export const CHANGE_TABLE_PAGE = 'change_table_page'
+
 
 // Not in use
 export const authenticateUser = () => {
@@ -22,7 +28,14 @@ export const authenticateUser = () => {
   }
 }
 
-export const fetchHistory = (user, page = 1, url) => {
+// ACTION CREATORS
+
+export const changeTablePage = currentTablePage => ({
+  type: CHANGE_TABLE_PAGE,
+  currentTablePage
+})
+
+export const fetchHistory = ({ user, page = 1 }, url) => {
   const requestUrl = url || `${LASTFM_HISTORY_BASE_URL}${user}&page=${page}`
   const request = axios.get(requestUrl)
 
