@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import axios from 'axios'
 import qs from 'query-string'
 import Table from 'antd/lib/Table'
 import Button from 'antd/lib/Button'
@@ -33,8 +34,21 @@ class Builder extends Component {
     selectedRowKeys: []
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.props.fetchHistory({ user: DEBUG_USER })
+  }
+
+  onPress = () => {
+    return axios.post('http://localhost:5001/spotify-time-machine/us-central1/getSpotifyIdsFromSongsHandler')
+      .then(results => console.log(results))
+      .catch(error => console.log(error))
+  }
+
+  _onPressBack = () => {
+    if (this.state.currentPage > 1) {
+      this.setState({ currentPage: this.state.currentPage - 1 })
+      this.props.fetchHistory(DEBUG_USER, this.state.currentPage - 1)
+    }
   }
 
   _onSelectChange = (selectedRowKeys, selectedRows) => {
@@ -49,15 +63,6 @@ class Builder extends Component {
       this.props.fetchHistory({ user: DEBUG_USER }, this.state.currentPage + 1)
     }
   }
-
-  _onPressBack = () => {
-    if (this.state.currentPage > 1) {
-      this.setState({ currentPage: this.state.currentPage - 1 })
-      this.props.fetchHistory(DEBUG_USER, this.state.currentPage - 1)
-    }
-  }
-
-  parsedHash = qs.parse(this.props.location.hash)
 
   render() {
     const { selectedRowKeys } = this.state
@@ -91,6 +96,10 @@ class Builder extends Component {
               loading={this.props.loading}
               pagination={<Pagination />}
             />
+
+            <Button onClick={this.onPress}>
+              Log History Objects
+            </Button>
 
             <Pagination />
 
