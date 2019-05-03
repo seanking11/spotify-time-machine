@@ -1,0 +1,36 @@
+[debug] [2019-04-30T05:22:10.734Z] ----------------------------------------------------------------------
+[debug] [2019-04-30T05:22:10.737Z] Command:       /Users/seanking/.nvm/versions/node/v6.14.4/bin/node /usr/local/bin/firebase serve
+[debug] [2019-04-30T05:22:10.738Z] CLI Version:   4.2.1
+[debug] [2019-04-30T05:22:10.738Z] Platform:      darwin
+[debug] [2019-04-30T05:22:10.738Z] Node Version:  v6.14.4
+[debug] [2019-04-30T05:22:10.739Z] Time:          Tue Apr 30 2019 00:22:10 GMT-0500 (CDT)
+[debug] [2019-04-30T05:22:10.739Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-04-30T05:22:10.752Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-04-30T05:22:10.752Z] > authorizing via signed-in user
+[debug] [2019-04-30T05:22:10.755Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2019-04-30T05:22:10.755Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+
+[debug] [2019-04-30T05:22:10.944Z] <<< HTTP RESPONSE 200
+[debug] [2019-04-30T05:22:10.962Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/spotify-time-machine  
+ 
+[debug] [2019-04-30T05:22:11.215Z] <<< HTTP RESPONSE 200
+[debug] [2019-04-30T05:22:11.216Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/spotify-time-machine  
+ 
+[debug] [2019-04-30T05:22:11.386Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from '/Users/seanking/code/spotify-time-machine'...
+[info] 
+[info] i  functions: Preparing to emulate functions.
+[debug] [2019-04-30T05:22:12.290Z] Fetching environment
+[debug] [2019-04-30T05:22:12.293Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/857294641838:getServerAppConfig  
+ 
+[debug] [2019-04-30T05:22:12.294Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/857294641838/clients/_:getWebAppConfig  
+ 
+[debug] [2019-04-30T05:22:12.471Z] <<< HTTP RESPONSE 200
+[debug] [2019-04-30T05:22:12.472Z] Starting @google-cloud/functions-emulator
+[debug] [2019-04-30T05:22:12.806Z] <<< HTTP RESPONSE 200
+[info] i  hosting[spotify-time-machine]: Serving hosting files from: app
+[info] ✔  hosting[spotify-time-machine]: Local server: http://localhost:5000
+[debug] [2019-04-30T05:22:14.045Z] Parsing function triggers
+[info] ✔  functions: getSpotifyIdsFromSongsHandler: http://localhost:5001/spotify-time-machine/us-central1/getSpotifyIdsFromSongsHandler

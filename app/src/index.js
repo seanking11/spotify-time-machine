@@ -7,7 +7,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import promiseMiddleware from 'redux-promise'
 import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly'
 
-import Builder from './components/Builder'
+import Dashboard from './components/Dashboard'
 import reducers from './reducers'
 
 const store = createStore(reducers, {}, composeWithDevTools(applyMiddleware(promiseMiddleware)))
@@ -16,7 +16,7 @@ ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
       <Switch>
-        <Route exact path='/' component={Builder} />
+        <Route exact path='/' component={Dashboard} />
       </Switch>
     </BrowserRouter>
   </Provider>
